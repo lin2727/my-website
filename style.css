@@ -37,7 +37,7 @@ header p {
 }
 
 /* 關於我區塊樣式 */
-section.about-me {
+section.about-me, section.music, section.contact {
   padding: 20px;
   background-color: #fffacd; /* 柔和黃色 */
   margin: 20px auto;
@@ -57,15 +57,11 @@ section p {
   color: #555;
 }
 
-/* 聯絡我區塊樣式 */
-section.contact {
-  padding: 20px;
-  margin: 20px auto;
-  background-color: #fffacd; /* 柔和黃色 */
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  width: 80%;
-  max-width: 600px;
+/* 音樂播放器樣式 */
+section.music audio {
+  margin-top: 10px;
+  width: 100%; /* 響應式播放器 */
+  max-width: 400px;
 }
 
 /* 頁尾樣式 */
