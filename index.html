@@ -1,184 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #e0f7fa;
-            overflow: hidden;
-        }
-        h1 {
-            color: #00695c;
-        }
-        .board {
-            display: grid;
-            grid-template-columns: repeat(3, 100px);
-            grid-template-rows: repeat(3, 100px);
-            gap: 5px;
-        }
-        .cell {
-            width: 100px;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-            background-color: #a5d6a7;
-            border: 2px solid #00695c;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .cell:hover {
-            background-color: #81c784;
-        }
-        .cell.taken {
-            pointer-events: none;
-        }
-        .winner {
-            margin-top: 20px;
-            font-size: 20px;
-            color: #2e7d32;
-        }
-        button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4caf50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #388e3c;
-        }
-        .snowflake {
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            font-size: 1em;
-            color: white;
-            animation: fall linear infinite;
-        }
-
-        @keyframes fall {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0.3;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的自我介紹</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Tic Tac Toe</h1>
-    <div class="board" id="board"></div>
-    <div class="winner" id="winner"></div>
-    <button id="restart">Restart Game</button>
+  <header>
+    <h1>你好，我是佩琪</h1>
+    <p>歡迎來到我的個人網站！</p>
+  </header>
+  
+  <section class="about-me">
+    <h2>關於我</h2>
+    <p>我是一名熱愛程式設計的開發者，喜歡學習新技術和解決問題。在空閒時間，我喜歡閱讀、旅行和寫程式。</p>
+  </section>
 
-    <script>
-        const board = document.getElementById('board');
-        const winnerDisplay = document.getElementById('winner');
-        const restartButton = document.getElementById('restart');
+  <section class="contact">
+    <h2>聯絡我</h2>
+    <p>📧 電子郵件：example@gmail.com</p>
+    <p>📱 電話：123-456-7890</p>
+  </section>
 
-        let currentPlayer = 'X';
-        let gameActive = true;
-        let gameState = ["", "", "", "", "", "", "", "", ""];
-
-        const winningConditions = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-            [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-            [0, 4, 8], [2, 4, 6]             // Diagonals
-        ];
-
-        function handleCellClick(event) {
-            const cell = event.target;
-            const cellIndex = Array.from(board.children).indexOf(cell);
-
-            if (gameState[cellIndex] !== "" || !gameActive) return;
-
-            gameState[cellIndex] = currentPlayer;
-            cell.textContent = currentPlayer;
-            cell.classList.add('taken');
-
-            checkWinner();
-            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-        }
-
-        function checkWinner() {
-            let roundWon = false;
-
-            for (let condition of winningConditions) {
-                const [a, b, c] = condition;
-                if (gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
-                    roundWon = true;
-                    break;
-                }
-            }
-
-            if (roundWon) {
-                gameActive = false;
-                winnerDisplay.textContent = `Player ${currentPlayer} wins!`;
-                return;
-            }
-
-            if (!gameState.includes("")) {
-                gameActive = false;
-                winnerDisplay.textContent = "It's a draw!";
-            }
-        }
-
-        function restartGame() {
-            currentPlayer = 'X';
-            gameActive = true;
-            gameState = ["", "", "", "", "", "", "", "", ""];
-            winnerDisplay.textContent = "";
-            Array.from(board.children).forEach(cell => {
-                cell.textContent = "";
-                cell.classList.remove('taken');
-            });
-        }
-
-        function createBoard() {
-            board.innerHTML = "";
-            for (let i = 0; i < 9; i++) {
-                const cell = document.createElement('div');
-                cell.classList.add('cell');
-                cell.addEventListener('click', handleCellClick);
-                board.appendChild(cell);
-            }
-        }
-
-        function createSnowflakes() {
-            for (let i = 0; i < 50; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.classList.add('snowflake');
-                snowflake.textContent = "❄";
-                snowflake.style.left = `${Math.random() * 100}vw`;
-                snowflake.style.fontSize = `${Math.random() * 10 + 10}px`;
-                snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;
-                document.body.appendChild(snowflake);
-            }
-        }
-
-        restartButton.addEventListener('click', restartGame);
-
-        createBoard();
-        createSnowflakes();
-    </script>
+  <footer>
+    <p>&copy; 2025 佩琪的個人網站</p>
+  </footer>
 </body>
 </html>
